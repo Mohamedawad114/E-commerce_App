@@ -15,11 +15,11 @@ export const updateReview = {
     rating: Joi.number().min(1).max(5),
   }),
   params: Joi.object({
-    id: Joi.string().hex().length(24).required(),
+    reviewId: Joi.string().hex().length(24).required(),
   }),
 };
 export const reviewId = {
   params: Joi.object({
-    id: Joi.string().hex().length(24).required(),
+    reviewId: Joi.string().hex().length(24).required(),
   }),
 };

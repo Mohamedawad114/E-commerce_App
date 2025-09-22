@@ -33,7 +33,7 @@ const router = Router();
  *         description: List of users
  */
 router.get(
-  "/users",
+  "/",
   verifyToken,
   validationAdmin,
   validate(checkQuery),

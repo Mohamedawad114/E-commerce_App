@@ -63,10 +63,9 @@ export const updateProduct = asyncHandler(async (req, res) => {
   const product = await Product.findById(id);
   if (!product) throw new Error(`product not found`, { cause: 404 });
   const { name, description, stock, price, categoryId } = req.body;
-
   if (!categoryId) {
     const updated = await Product.findByIdAndUpdate(
-      categoryId,
+      id,
       {
         name,
         description,
@@ -75,6 +74,7 @@ export const updateProduct = asyncHandler(async (req, res) => {
       },
       { new: true }
     );
+    if(updated)
     return res.status(200).json({ message: `product updated`, updated });
   }
   const category = await Category.findById(categoryId);
@@ -125,11 +125,11 @@ export const deleteProduct = asyncHandler(async (req, res) => {
     await session.commitTransaction();
     await session.endSession();
   }
-  await delete_files({ path: `products:${id}` });
+  await delete_files({ path: `products/${id}` });
   return res.status(200).json({ message: `product deleted`, deleted });
 });
 export const categotyProducts = asyncHandler(async (req, res) => {
-  const categoryId = req.params.id;
+  const categoryId = req.params.categoryId;
   const page = parseInt(req.query.page) || 1;
   const limit = 10;
   const offset = (page - 1) * limit;

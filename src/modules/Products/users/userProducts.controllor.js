@@ -36,6 +36,26 @@ router.get("/topRating", verifyToken, services.topRating_products);
 
 /**
  * @swagger
+ * /userProducts/search:
+ *   get:
+ *     summary: Search products
+ *     tags: [UserProducts]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: query
+ *         name: keyword
+ *         schema:
+ *           type: string
+ *         description: Search keyword
+ *     responses:
+ *       200:
+ *         description: Search results
+ */
+router.get("/search", verifyToken, services.search);
+
+/**
+ * @swagger
  * /userProducts/{id}:
  *   get:
  *     summary: Get a product by ID
@@ -80,26 +100,6 @@ router.get(
   validate(checkParams),
   services.getProductSummary
 );
-
-/**
- * @swagger
- * /userProducts/search:
- *   get:
- *     summary: Search products
- *     tags: [UserProducts]
- *     security:
- *       - bearerAuth: []
- *     parameters:
- *       - in: query
- *         name: keyword
- *         schema:
- *           type: string
- *         description: Search keyword
- *     responses:
- *       200:
- *         description: Search results
- */
-router.get("/search", verifyToken, services.search);
 
 /**
  * @swagger

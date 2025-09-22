@@ -23,7 +23,12 @@ const router = Router();
  *       200:
  *         description: List of pending orders
  */
-router.get("/orderPending", verifyToken, validationAdmin, services.orderPending);
+router.get(
+  "/orderPending",
+  verifyToken,
+  validationAdmin,
+  services.orderPending
+);
 
 /**
  * @swagger
@@ -37,7 +42,12 @@ router.get("/orderPending", verifyToken, validationAdmin, services.orderPending)
  *       200:
  *         description: List of confirmed orders
  */
-router.get("/orderConfirmed", verifyToken, validationAdmin, services.orderconfirm);
+router.get(
+  "/orderConfirmed",
+  verifyToken,
+  validationAdmin,
+  services.orderconfirm
+);
 
 /**
  * @swagger
@@ -65,7 +75,11 @@ router.get("/orderPerDay", verifyToken, validationAdmin, services.ordersPerDay);
  *       200:
  *         description: Orders statistics per month
  */
-router.get("/orderPerMonth", verifyToken, validationAdmin, services.ordersPerMonth);
-
+router.get(
+  "/orderPerMonth",
+  verifyToken,
+  validationAdmin,
+  services.ordersPerMonth
+);
 
 export default router;

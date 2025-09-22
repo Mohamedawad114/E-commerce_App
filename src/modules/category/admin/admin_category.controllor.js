@@ -9,6 +9,7 @@ import {
   checkQuery,
   updateCategorySchema,
 } from "../../../utils/index.js";
+import { uploadFile } from "../../../middlwares/upload.multer.js";
 
 const router = Router();
 
@@ -67,7 +68,14 @@ router.post("/add", verifyToken, validationAdmin, validate(CategorySchema), serv
  *       200:
  *         description: Photo uploaded successfully
  */
-router.post("/:id/photo", verifyToken, validationAdmin, validate(checkParams), services.photoCategory);
+router.post(
+  "/:id/photo",
+  verifyToken,
+  validationAdmin,
+  validate(checkParams),
+  uploadFile.single("image"),
+  services.photoCategory
+);
 
 /**
  * @swagger

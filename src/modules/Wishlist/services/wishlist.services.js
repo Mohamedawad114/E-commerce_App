@@ -4,7 +4,7 @@ import Product from "../../../DB/models/product.model.js";
 
 export const addToWishlist = asyncHandler(async (req, res) => {
   const userId = req.user.id;
-  const { productId } = req.body;
+  const  productId  = req.params.id;
   const product = await Product.findById(productId);
   if (!product) throw new Error("product not found", { cause: 404 });
   let wishlist = await Wishlist.findOne({ userId });
@@ -23,7 +23,7 @@ export const addToWishlist = asyncHandler(async (req, res) => {
 
 export const removeFromWishlist = asyncHandler(async (req, res) => {
   const userId = req.user.id;
-  const { productId } = req.body;
+  const  productId = req.params.id;
   const wishlist = await Wishlist.findOne({ userId });
   if (!wishlist) throw new Error("wishlist not found", { cause: 404 });
   wishlist.products = wishlist.products.filter(

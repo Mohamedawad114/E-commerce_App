@@ -98,11 +98,11 @@ export const bannedUser_email = async (email) => {
   await sendEmail({
     to: email,
     subject: "تم حظر حسابك",
-    html: resetHtml,
+    html: bannedHtml,
   });
 };
 
-export const orderPaid_email = async (email, orderId,) => {
+export const orderPaid_email = async (email, orderId) => {
   const paidHtml = `
 <div style="font-family: Arial, sans-serif; padding: 20px; background-color: #f9f9f9;">
   <div style="max-width: 600px; margin: auto; background-color: #ffffff; padding: 30px; border-radius: 10px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);">
@@ -122,7 +122,7 @@ export const orderPaid_email = async (email, orderId,) => {
     <hr style="margin-top: 30px;" />
     <p style="font-size: 12px; color: #999;">© 2025 Notes. جميع الحقوق محفوظة.</p>
   </div>
-</div`
+</div`;
   await sendEmail({
     to: email,
     subject: "✅ تم الدفع بنجاح - طلبك قيد المعالجة",

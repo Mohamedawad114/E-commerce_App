@@ -9,25 +9,22 @@ export const topSelling_products = asyncHandler(async (req, res) => {
     return res
       .status(200)
       .json({ products: JSON.parse(topSelling), source: "cache" });
-  } else {
-    const products = await Product.find({}).sort({ sold: -1 }).limit(20).lean();
-    return res
-      .status(200)
-      .json({ products: JSON.parse(products), source: "DB" });
   }
+  const products = await Product.find({}).sort({ sold: -1 }).limit(20).lean();
+  return res.status(200).json({ products, source: "DB" });
 });
 export const topRating_products = asyncHandler(async (req, res) => {
   const topRating = await connection.get("top:global:rating");
   if (topRating) {
-    return res.status(200).json({ products: JSON.parse(topRating) });
+    return res
+      .status(200)
+      .json({ products: JSON.parse(topRating), source: "cache" });
   } else {
     const products = await Product.find({})
       .sort({ avgRating: -1 })
       .limit(20)
       .lean();
-    return res
-      .status(200)
-      .json({ products: JSON.parse(products), source: "DB" });
+    return res.status(200).json({ products });
   }
 });
 
@@ -46,9 +43,9 @@ export const categotyProducts_sorted = asyncHandler(async (req, res) => {
 
   const products = await Product.find(
     { categoryId: categoryId },
-    { createdAt: 0 }
+    { createdAt: 0 },
+    { sort }
   )
-    .sort(sort)
     .limit(limit)
     .skip(offset)
     .lean();
@@ -94,6 +91,7 @@ export const getProductSummary = asyncHandler(async (req, res) => {
     return res.status(200).json({ product });
   } else throw new Error(`product not found`, { cause: 404 });
 });
+
 export const topRating_products_forCategory = asyncHandler(async (req, res) => {
   const categoryId = req.params.id;
   const category = await Category.findById(categoryId);
@@ -106,6 +104,18 @@ export const topRating_products_forCategory = asyncHandler(async (req, res) => {
       .status(200)
       .json({ products: JSON.parse(topRating_products), source: "cache" });
   }
+  const products = await Product.find({ category: categoryId })
+    .sort({ avgRating: -1 })
+    .limit(20)
+    .lean();
+  await connection.set(
+    `top:category:${categoryId}:rating`,
+    JSON.stringify(products),
+    "EX",
+    60 * 60 * 24
+  );
+
+  return res.status(200).json({ products, source: "db" });
 });
 export const topselling_products_forCategory = asyncHandler(
   async (req, res) => {
@@ -120,5 +130,16 @@ export const topselling_products_forCategory = asyncHandler(
         .status(200)
         .json({ products: JSON.parse(topselling_products), source: "cache" });
     }
+    const products = await Product.find({ categoryId: categoryId })
+      .sort({ sold: -1 })
+      .limit(20)
+      .lean();
+    await connection.set(
+      `top:category:${categoryId}:selling`,
+      JSON.stringify(products),
+      "EX",
+      60 * 60 * 24
+    );
+    return res.status(200).json({ products, source: "db" });
   }
 );

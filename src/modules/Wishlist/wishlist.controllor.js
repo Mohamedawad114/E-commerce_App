@@ -28,7 +28,7 @@ const router = Router();
  *         description: Invalid request
  */
 router.post(
-  "/wishlist/:id",
+  "/:id",
   verifyToken,
   validate(checkParams),
   services.addToWishlist
@@ -46,7 +46,7 @@ router.post(
  *       200:
  *         description: List of wishlist products
  */
-router.get("/wishlist", verifyToken, services.getWishlist);
+router.get("/", verifyToken, services.getWishlist);
 
 /**
  * @swagger
@@ -70,7 +70,7 @@ router.get("/wishlist", verifyToken, services.getWishlist);
  *         description: Product not found in wishlist
  */
 router.delete(
-  "/wishlist/:id",
+  "/:id",
   verifyToken,
   validate(checkParams),
   services.removeFromWishlist

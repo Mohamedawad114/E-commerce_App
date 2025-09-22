@@ -60,12 +60,17 @@ export const deleteReview = asyncHandler(async (req, res) => {
   await product.save();
   return res.status(200).json({ message: `review deleted` });
 });
+
 export const getReview = asyncHandler(async (req, res) => {
   const review = req.review;
   return res.status(200).json({ Review: review });
 });
-export const allReview = asyncHandler(async (req, res) => {
-  const reviews = await Review.find({})
+
+export const allReviewProduct = asyncHandler(async (req, res) => {
+  const productId=req.params.productId
+  const product = await Product.findById(productId)
+    if(!product) throw new Error("product not found")
+  const reviews = await Review.find({productId})
     .sort({ createdAt: -1 })
     .populate({ path: "userId", select: "user_name" })
     .lean();

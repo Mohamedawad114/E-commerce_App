@@ -27,6 +27,9 @@ export const search = asyncHandler(async (req, res) => {
   const categories = await Category.find({
     name: { $regex: name, $options: "i" },
   }).lean();
+  if (!categories.length)
+    return res.status(200).json({ message: `no categories found` });
+  
   return res.status(200).json({ categories: categories });
 });
 

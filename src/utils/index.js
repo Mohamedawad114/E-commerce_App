@@ -11,4 +11,5 @@ export *from "./validators Schema/product.schema.js"
 export *from "./validators Schema/review.schema.js"
 export *from "./validators Schema/users.Schema.js"
 export * from "./validators Schema/category.schema.js"
-export *from './services/stripe.js'
+export * from './services/stripe.js'
+export * from './services/RateLimit.js'

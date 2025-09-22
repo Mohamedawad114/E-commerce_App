@@ -13,25 +13,6 @@ const router = Router();
  *   description: Product reviews management
  */
 
-/**
- * @swagger
- * /reviews:
- *   get:
- *     summary: Get all reviews
- *     tags: [Reviews]
- *     security:
- *       - bearerAuth: []
- *     responses:
- *       200:
- *         description: List of all reviews
- *         content:
- *           application/json:
- *             schema:
- *               type: array
- *               items:
- *                 $ref: '#/components/schemas/Review'
- */
-router.get("/", verifyToken, services.allReview);
 
 /**
  * @swagger
@@ -58,7 +39,27 @@ router.get("/", verifyToken, services.allReview);
  *       404:
  *         description: Review not found
  */
-router.get("/:id", verifyToken, validate(reviewId), services.getReview);
+router.get("/:reviewId", verifyToken, validate(reviewId),verifyReview_owner, services.getReview);
+
+/**
+ * @swagger
+ * /reviews:
+ *   get:
+ *     summary: Get all reviews
+ *     tags: [Reviews]
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: List of all reviews
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Review'
+ */
+router.get("/product/:productId", verifyToken, services.allReviewProduct);
 
 /**
  * @swagger
@@ -82,7 +83,7 @@ router.get("/:id", verifyToken, validate(reviewId), services.getReview);
  *             schema:
  *               $ref: '#/components/schemas/Review'
  */
-router.post("/add", verifyToken, validate(addReview), services.addReview);
+router.post("/add/:id", verifyToken, validate(addReview), services.addReview);
 
 /**
  * @swagger
@@ -118,7 +119,7 @@ router.post("/add", verifyToken, validate(addReview), services.addReview);
  *         description: Review not found
  */
 router.put(
-  "/:id/update",
+  "/:reviewId/update",
   verifyToken,
   verifyReview_owner,
   validate(updateReview),
@@ -149,10 +150,10 @@ router.put(
  *         description: Review not found
  */
 router.delete(
-  "/:id/delete",
+  "/:reviewId/delete",
   verifyToken,
-  verifyReview_owner,
   validate(reviewId),
+  verifyReview_owner,
   services.deleteReview
 );
 

@@ -5,7 +5,7 @@ export const productSchema = {
     name: Joi.string().min(4).required().trim(),
     description: Joi.string().min(4).max(500).required().trim(),
     stock: Joi.number().integer().required().greater(0),
-    stock: Joi.number().integer().required().greater(0),
+    price: Joi.number().required().greater(0),
     categoryId: Joi.string().hex().length(24).required(),
   }),
 };
@@ -14,7 +14,7 @@ export const updateProductSchema = {
     name: Joi.string().min(4).trim(),
     description: Joi.string().min(4).max(500).trim(),
     stock: Joi.number().integer().greater(0),
-    stock: Joi.number().integer().greater(0),
+    price: Joi.number().greater(0),
     categoryId: Joi.string().hex().length(24),
   }),
   params: Joi.object({
@@ -26,6 +26,6 @@ export const categoryProductSchema = {
     page: Joi.number().integer().default(1).min(1).max(50),
   }),
   params: Joi.object({
-    id: Joi.string().hex().length(24).required(),
+    categoryId: Joi.string().hex().length(24).required(),
   }),
 };

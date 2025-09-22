@@ -129,6 +129,21 @@ router.get("/resendOTPReset", verifyToken, services.resendOTP_reset);
 
 /**
  * @swagger
+ * /profile/notification:
+ *   get:
+ *     summary: notification which user not read
+ *     tags: [Profile]
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: notification
+ */
+
+router.get("/notifications", verifyToken, services.Notifications);
+
+/**
+ * @swagger
  * /profile/resetPassword:
  *   put:
  *     summary: Reset user password using OTP

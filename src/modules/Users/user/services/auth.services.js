@@ -2,7 +2,7 @@ import asyncHandler from "express-async-handler";
 import { OAuth2Client } from "google-auth-library";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-import "dotenv/config";
+import env from "dotenv";
 import {
   generateAccessToken,
   generateTokens,
@@ -11,6 +11,8 @@ import {
 } from "../../../../utils/index.js";
 import User from "../../../../DB/models/user.model.js";
 import { emailQueue, notificationQueue } from "../../../../Queues/index.js";
+env.config();
+
 export const signup = asyncHandler(async (req, res) => {
   const { Name, user_name, password, email, role, age, phone, address } =
     req.body;
@@ -28,7 +30,11 @@ export const signup = asyncHandler(async (req, res) => {
   });
   if (create) {
     await emailQueue.add("sendEmail", { type: "confirmation", email: email });
-    await notificationQueue.add("createNotification", { userId: create._id, title: "🎉 Welcome to E-commerce", content: `Hi ${user_name}, your account has been created successfully. We're excited to have you with us` });
+    await notificationQueue.add("createNotification", {
+      userId: create._id,
+      title: "🎉 Welcome to E-commerce",
+      content: `Hi ${user_name}, your account has been created successfully. We're excited to have you with us`,
+    });
   }
   return res.status(201).json({ message: `signup done,OTP send` });
 });
@@ -119,12 +125,11 @@ export const loginuser = asyncHandler(async (req, res) => {
     id: user._id,
     role: user.role,
   });
-      await notificationQueue.add("createNotification", {
-        userId: user._id,
-        title: "👋 Login Successful",
-        content: `Hi ${user.user_name}, you’ve just logged in to your account. If this wasn’t you, please reset your password immediately.`
-      });
-
+  await notificationQueue.add("createNotification", {
+    userId: user._id,
+    title: "👋 Login Successful",
+    content: `Hi ${user.user_name}, you’ve just logged in to your account. If this wasn’t you, please reset your password immediately.`,
+  });
   res.status(200).json({
     message: `login seccussfully`,
     accessToken,
@@ -141,6 +146,7 @@ export const refreshToken = asyncHandler(async (req, res) => {
     const isexisted = await connection.get(
       `refreshToken:${decoded.id}:${decoded.jti}`
     );
+  
     if (!isexisted) return res.sendStatus(403);
     const accessToken = generateAccessToken({
       id: decoded.id,

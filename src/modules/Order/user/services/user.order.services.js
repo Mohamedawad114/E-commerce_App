@@ -7,7 +7,7 @@ import mongoose from "mongoose";
 
 export const createOrder = async (req, res) => {
   const user = req.user;
-  if (user.provider === "google") {
+  if (!user.password||!user.phone||!user.address) {
     throw new Error("please complete your profile", { cause: 400 });
   }
   const userCart = await Cart.findOne({ userId: user._id });
@@ -25,7 +25,7 @@ export const createOrder = async (req, res) => {
   }
   const session = await mongoose.startSession();
   session.startTransaction();
-  const createdOrder = await Order.create(
+  const createdOrder = await Order.create([
     {
       phone,
       address,
@@ -33,7 +33,7 @@ export const createOrder = async (req, res) => {
       total_price: userCart.total_price,
       products: userCart.products,
       payment_method,
-    },
+    }],
     { session }
   );
   await Promise.all(

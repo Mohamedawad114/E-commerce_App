@@ -9,6 +9,7 @@ import db_connection from "./DB/db.connection.js";
 import { app_router } from "./modules/controllor.index.js";
 import { serverAdapter } from "./Queues/bullboard.js";
 import { swaggerDocs } from "../swagger.js";
+import { limiter } from "./utils/index.js";
 
 env.config();
 
@@ -45,6 +46,8 @@ app.use("/api/admin/Orders", app_router.adminOrder_Router);
 app.use("/api/payments", app_router.payment_Router);
 
 app.use("/admin/queues", serverAdapter.getRouter());
+app.use(limiter);
+
 db_connection();
 app.use(async (err, req, res, next) => {
   if (req.session && req.session.inTransaction()) {

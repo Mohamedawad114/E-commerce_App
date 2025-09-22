@@ -36,6 +36,9 @@ export const orderconfirm = async (req, res) => {
 export const ordersPerDay = async (req, res) => {
   const orders = await Order.aggregate([
     {
+      $match: { status: "confimered" },
+    },
+    {
       $group: {
         _id: {
           day: { $dayOfMonth: "$createdAt" },
@@ -52,6 +55,9 @@ export const ordersPerDay = async (req, res) => {
 };
 export const ordersPerMonth = async (req, res) => {
   const orders = await Order.aggregate([
+    {
+      $match: { status: "confimered" },
+    },
     {
       $group: {
         _id: {

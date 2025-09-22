@@ -118,30 +118,27 @@ export const updatePasswordSchema = {
         "string.min": "Password should be at least 6 characters",
         "any.required": "Password is required",
       }),
+    newPassword: Joi.string()
+      .min(6)
+      .pattern(
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%?.&-])[A-Za-z\d@$!%?.&-]{6,}$/
+      )
+      .required()
+      .trim()
+      .messages({
+        "string.min": "Password should be at least 6 characters",
+        "any.required": "Password is required",
+      }),
+    newPasswordConfirm: Joi.string()
+      .min(6)
+      .valid(Joi.ref("newPassword"))
+      .required()
+      .trim()
+      .messages({
+        "string.min": "Password should be at least 6 characters",
+        "any.required": "Password is required",
+      }),
   }),
-  newPassword: Joi.string()
-    .min(6)
-    .pattern(
-      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%?.&-])[A-Za-z\d@$!%?.&-]{6,}$/
-    )
-    .required()
-    .trim()
-    .messages({
-      "string.min": "Password should be at least 6 characters",
-      "any.required": "Password is required",
-    }),
-  newPasswordConfrim: Joi.string()
-    .min(6)
-    .valid(Joi.ref("s"))
-    .pattern(
-      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%?.&-])[A-Za-z\d@$!%?.&-]{6,}$/
-    )
-    .required()
-    .trim()
-    .messages({
-      "string.min": "Password should be at least 6 characters",
-      "any.required": "Password is required",
-    }),
 };
 export const resetPasswordSchema = {
   body: Joi.object({

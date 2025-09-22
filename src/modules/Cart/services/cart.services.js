@@ -82,9 +82,8 @@ export const removeAllFromCart = asyncHandler(async (req, res) => {
   const userId = req.user.id;
   const cart = await Cart.findOne({ userId: userId });
   if (cart) {
-    cart.products = [],
-      cart.total_price=0
-    return res.status(200).json({ message: `cart removed`  });
+    (cart.products = []), (cart.total_price = 0);
+    return res.status(200).json({ message: `cart removed` });
   }
 });
 export const userCart = asyncHandler(async (req, res) => {
@@ -96,6 +95,7 @@ export const userCart = asyncHandler(async (req, res) => {
     })
     .lean();
   if (cart) return res.status(200).json({ cart });
+  return res.status(200).json({ messsage: `no products in your cart` });
 });
 export const summaryCart = asyncHandler(async (req, res) => {
   const userId = req.user.id;

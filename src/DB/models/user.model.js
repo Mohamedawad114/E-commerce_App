@@ -36,7 +36,7 @@ const userSchema = new mongoose.Schema(
         return this.provider == "system";
       },
     },
-    role: { type: String, enum: ["user", "admin"], default: "user" },
+    role: { type: String, enum: ["user", "Admin"], default: "user" },
     address: {
       type: String,
       required: function () {

@@ -39,7 +39,13 @@ const router = Router();
  *       201:
  *         description: Product created successfully
  */
-router.post("/add", verifyToken, validationAdmin, validate(productSchema), services.addProduct);
+router.post(
+  "/add",
+  verifyToken,
+  validationAdmin,
+  validate(productSchema),
+  services.addProduct
+);
 
 /**
  * @swagger
@@ -71,7 +77,14 @@ router.post("/add", verifyToken, validationAdmin, validate(productSchema), servi
  *       200:
  *         description: Photos uploaded successfully
  */
-router.post("/:id/photo", verifyToken, validationAdmin, validate(checkParams), uploadFiles.array("images", 4), services.uploadPhotos);
+router.post(
+  "/:id/photo",
+  verifyToken,
+  validationAdmin,
+  validate(checkParams),
+  uploadFiles.array("images", 4),
+  services.uploadPhotos
+);
 
 /**
  * @swagger
@@ -97,7 +110,13 @@ router.post("/:id/photo", verifyToken, validationAdmin, validate(checkParams), u
  *       200:
  *         description: Product updated successfully
  */
-router.put("/:id/update", verifyToken, validationAdmin, validate(updateProductSchema), services.updateProduct);
+router.put(
+  "/:id/update",
+  verifyToken,
+  validationAdmin,
+  validate(updateProductSchema),
+  services.updateProduct
+);
 
 /**
  * @swagger
@@ -117,7 +136,13 @@ router.put("/:id/update", verifyToken, validationAdmin, validate(updateProductSc
  *       200:
  *         description: Product details
  */
-router.get("/:id", verifyToken, validationAdmin, validate(checkParams), services.getProduct);
+router.get(
+  "/:id",
+  verifyToken,
+  validationAdmin,
+  validate(checkParams),
+  services.getProduct
+);
 
 /**
  * @swagger
@@ -137,7 +162,13 @@ router.get("/:id", verifyToken, validationAdmin, validate(checkParams), services
  *       200:
  *         description: Search results
  */
-router.get("/search", verifyToken, validationAdmin, validate(checkQuery), services.search);
+router.get(
+  "/search",
+  verifyToken,
+  validationAdmin,
+  validate(checkQuery),
+  services.search
+);
 
 /**
  * @swagger
@@ -163,8 +194,13 @@ router.get("/search", verifyToken, validationAdmin, validate(checkQuery), servic
  *       200:
  *         description: Products added to category successfully
  */
-router.post("/:id", verifyToken, validationAdmin, validate(categoryProductSchema), services.categotyProducts);
-
+router.get(
+  "/category/:categoryId",
+  verifyToken,
+  validationAdmin,
+  validate(categoryProductSchema),
+  services.categotyProducts
+);
 /**
  * @swagger
  * /adminProducts/{id}/delete:
@@ -183,6 +219,12 @@ router.post("/:id", verifyToken, validationAdmin, validate(categoryProductSchema
  *       200:
  *         description: Product deleted successfully
  */
-router.delete("/:id/delete", verifyToken, validationAdmin, validate(checkParams), services.deleteProduct);
+router.delete(
+  "/:id/delete",
+  verifyToken,
+  validationAdmin,
+  validate(checkParams),
+  services.deleteProduct
+);
 
 export default router;

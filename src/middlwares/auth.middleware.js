@@ -1,6 +1,7 @@
 import jwt from "jsonwebtoken";
 import User from "../DB/models/user.model.js";
-
+import env from "dotenv"
+env.config()
 async function verifyToken(req, res, next) {
   const authHeader = req.headers.authorization;
   const token = authHeader && authHeader.split(" ")[1];
@@ -17,7 +18,7 @@ async function verifyToken(req, res, next) {
 }
 
 export const validationAdmin = (req, res, next) => {
-  if (req.user.role != "admin") {
+  if (req.user.role != "Admin") {
     throw new Error(`you 're not auhorizated ,admin only`, { cause: 403 });
   }
   next();

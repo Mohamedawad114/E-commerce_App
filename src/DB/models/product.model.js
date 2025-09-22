@@ -32,15 +32,15 @@ const productSchema = new mongoose.Schema(
     },
     avgRating: {
       type: Number,
-      default: [0, `No rating yet`],
+      default: 0
     },
     total_Ratings: {
       type: Number,
-      default: [0, `No rating yet`],
+      default: 0,
     },
     sold: {
       type: Number,
-      default: [0, `No rating yet`],
+      default:0,
     },
     categoryId: {
       type: mongoose.Types.ObjectId,

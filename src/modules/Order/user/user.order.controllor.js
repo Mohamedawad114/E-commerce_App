@@ -71,7 +71,7 @@ router.get("/:id", verifyToken, validate(orderIdSchema), services.getOrder);
  *       200:
  *         description: List of user's orders
  */
-router.get("/myOrderS", verifyToken, services.getOrders);
+router.get("/", verifyToken, services.getOrders);
 
 /**
  * @swagger
