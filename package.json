@@ -1,0 +1,49 @@
+{
+  "name": "e-commerce",
+  "version": "1.0.0",
+  "main": "src/index.js",
+  "type": "module",
+  "engines": {
+    "node": "^22.13.1"
+  },
+  "scripts": {
+    "start": "cross-env NODE_ENV=dev node .",
+    "dev": "cross-env NODE_ENV=dev nodemon ."
+  },
+  "dependencies": {
+    "@bull-board/api": "^6.12.7",
+    "@bull-board/express": "^6.12.7",
+    "bcrypt": "^6.0.0",
+    "bullmq": "^5.58.5",
+    "cloudinary": "^2.7.0",
+    "cookie-parser": "^1.4.7",
+    "cors": "^2.8.5",
+    "cross-env": "^10.0.0",
+    "dotenv": "^17.2.0",
+    "express": "^5.1.0",
+    "express-async-handler": "^1.2.0",
+    "express-rate-limit": "^8.1.0",
+    "google-auth-library": "^10.2.1",
+    "helmet": "^8.1.0",
+    "hpp": "^0.2.3",
+    "ioredis": "^5.6.1",
+    "joi": "^17.13.3",
+    "jsonwebtoken": "^9.0.2",
+    "mongodb": "^6.17.0",
+    "mongoose": "^8.16.4",
+    "morgan": "^1.10.1",
+    "multer": "^2.0.2",
+    "nanoid": "^5.1.5",
+    "nodemailer": "^7.0.5",
+    "nodemon": "^3.1.10",
+    "pm2": "^6.0.13",
+    "stripe": "^18.5.0",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^5.0.1",
+    "uuid": "^11.1.0"
+  },
+  "devDependencies": {
+    "jest": "^30.0.4",
+    "supertest": "^7.1.3"
+  }
+}
