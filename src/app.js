@@ -10,7 +10,7 @@ import { app_router } from "./modules/controllor.index.js";
 import { serverAdapter } from "./Queues/bullboard.js";
 import { swaggerDocs } from "../swagger.js";
 import { limiter } from "./utils/index.js";
-env.config({ path: "./dev.env" });
+env.config({ path: "./.dev.env" });
 
 const app = express();
 app.use(helmet());
