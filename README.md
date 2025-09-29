@@ -161,7 +161,6 @@ npm install
 node workers/emailWorker.js
 node workers/orderCancellationWorker.js
 ```
-
 ---
 
 ## 🔒 Security & Production Notes
@@ -171,8 +170,24 @@ node workers/orderCancellationWorker.js
 * Use helmet + CORS
 * Use Redis store for rate limiting
 * Log admin actions (ban, delete, refund)
-
 ---
+## 🚀 Deploy in AWS with Ngrok (Secure & Easy Access)
+
+You can deploy this project on an AWS EC2 instance and expose it securely to the internet using **Ngrok**. This allows you to test your project from anywhere without configuring complex DNS or firewall rules.  
+
+### Steps to Deploy
+
+1. **Launch your EC2 instance**  
+   - Ubuntu 22.04 LTS is recommended.  
+   - Make sure the security group allows inbound traffic to your app port (default: `3000`).  
+
+2. **Clone the project**  
+   ```bash
+   git clone https://github.com/Mohamedawad114/E-commerce_App.git
+   cd E-commerce_App
+ ---
+ Ngrok provides a secure URL:
+ https://7d2ea2dfea4d.ngrok-free.app/
 
 ## 🎯 Conclusion
 
