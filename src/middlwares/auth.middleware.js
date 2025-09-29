@@ -1,7 +1,7 @@
 import jwt from "jsonwebtoken";
 import User from "../DB/models/user.model.js";
 import env from "dotenv"
-env.config({ path: "./dev.env" });
+env.config({ path: "./.dev.env" });
 async function verifyToken(req, res, next) {
   const authHeader = req.headers.authorization;
   const token = authHeader && authHeader.split(" ")[1];

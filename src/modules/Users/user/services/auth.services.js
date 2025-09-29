@@ -11,7 +11,7 @@ import {
 } from "../../../../utils/index.js";
 import User from "../../../../DB/models/user.model.js";
 import { emailQueue, notificationQueue } from "../../../../Queues/index.js";
-env.config({ path: "./dev.env" });
+env.config({ path: "./.dev.env" });
 
 
 export const signup = asyncHandler(async (req, res) => {

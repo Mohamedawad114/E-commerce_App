@@ -1,6 +1,6 @@
 import crypto from "node:crypto";
 import env from "dotenv";
-env.config({ path: "./dev.env" });
+env.config({ path: "./.dev.env" });
 function decryption(encryptedtext) {
   const buffer = Buffer.from(encryptedtext, "hex");
   const decrypted = crypto.privateDecrypt(

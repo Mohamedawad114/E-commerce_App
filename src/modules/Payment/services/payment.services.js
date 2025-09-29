@@ -2,6 +2,10 @@ import Order from "../../../DB/models/order.model.js";
 import User from "../../../DB/models/user.model.js";
 import { emailQueue } from "../../../Queues/index.js";
 import { stripe } from "../../../utils/index.js";
+import env from "dotenv";
+env.config({ path: "./dev.env" });
+
+
 
 export const createpayment = async (req, res) => {
   const {orderId} = req.body;

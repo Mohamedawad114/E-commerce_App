@@ -1,6 +1,6 @@
 import crypto from "node:crypto";
 import env from "dotenv";
-env.config({ path: "./dev.env" });
+env.config({ path: "./.dev.env" });
 function encryption(text) {
   const buffer = Buffer.from(text);
   const encrypted = crypto.publicEncrypt(

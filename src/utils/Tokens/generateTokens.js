@@ -2,7 +2,7 @@ import jwt from "jsonwebtoken";
 import { v4 as uuidV4 } from "uuid";
 import { connection } from "../services/redis.js";
 import env from "dotenv";
-env.config({ path: "./dev.env" });
+env.config({ path: "./.dev.env" });
 export const generateTokens = async ({ res, role = "user", id }) => {
   const jti = uuidV4();
   await connection.set(
