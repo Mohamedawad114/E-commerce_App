@@ -187,7 +187,7 @@ You can deploy this project on an AWS EC2 instance and expose it securely to the
    cd E-commerce_App
  ---
  Ngrok provides a secure URL:
- https://7d2ea2dfea4d.ngrok-free.app/
+ https://2d3ff23c4d94.ngrok-free.app/
 
 ## 🎯 Conclusion
 
